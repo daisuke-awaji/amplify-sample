@@ -1,0 +1,115 @@
+type City {
+  id: ID!
+  name: String!
+  description: String
+  location: String
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelCityConnection {
+  items: [City]
+  nextToken: String
+}
+
+input ModelStringFilterInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+}
+
+input ModelIDFilterInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+}
+
+input ModelIntFilterInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  contains: Int
+  notContains: Int
+  between: [Int]
+}
+
+input ModelFloatFilterInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  contains: Float
+  notContains: Float
+  between: [Float]
+}
+
+input ModelBooleanFilterInput {
+  ne: Boolean
+  eq: Boolean
+}
+
+input ModelCityFilterInput {
+  id: ModelIDFilterInput
+  name: ModelStringFilterInput
+  description: ModelStringFilterInput
+  location: ModelStringFilterInput
+  and: [ModelCityFilterInput]
+  or: [ModelCityFilterInput]
+  not: ModelCityFilterInput
+}
+
+type Query {
+  getCity(id: ID!): City
+  listCitys(filter: ModelCityFilterInput, limit: Int, nextToken: String): ModelCityConnection
+}
+
+input CreateCityInput {
+  name: String!
+  description: String
+  location: String
+}
+
+input UpdateCityInput {
+  id: ID!
+  name: String
+  description: String
+  location: String
+}
+
+input DeleteCityInput {
+  id: ID
+}
+
+type Mutation {
+  createCity(input: CreateCityInput!): City
+  updateCity(input: UpdateCityInput!): City
+  deleteCity(input: DeleteCityInput!): City
+}
+
+type Subscription {
+  onCreateCity: City @aws_subscribe(mutations: ["createCity"])
+  onUpdateCity: City @aws_subscribe(mutations: ["updateCity"])
+  onDeleteCity: City @aws_subscribe(mutations: ["deleteCity"])
+}
