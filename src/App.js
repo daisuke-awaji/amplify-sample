@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+
+import { withAuthenticator } from "aws-amplify-react";
 
 import { API, graphqlOperation } from "aws-amplify";
 
@@ -95,4 +96,5 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withAuthenticator(App, {includeGreeting: true});
+//export default App;

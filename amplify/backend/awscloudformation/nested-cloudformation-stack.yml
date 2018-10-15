@@ -84,10 +84,66 @@
 				"TemplateURL": "https://s3.amazonaws.com/amplifysample-20181009090322-deployment/amplify-cfn-templates/api/cloudformation-template.json",
 				"Parameters": {
 					"AppSyncApiName": "amplifysample",
-					"schemaGraphql": "s3://amplifysample-20181009090322-deployment/amplify-appsync-files/schema.graphql.1539045169523",
+					"AuthCognitoUserPoolId": {
+						"Fn::GetAtt": [
+							"authcognito615ee465",
+							"Outputs.UserPoolId"
+						]
+					},
+					"schemaGraphql": "s3://amplifysample-20181009090322-deployment/amplify-appsync-files/schema.graphql.1539612572033",
 					"ResolverBucket": "amplifysample-20181009090322-deployment",
 					"ResolverRootKey": "amplify-appsync-files",
-					"DeploymentTimestamp": "1539045169523"
+					"DeploymentTimestamp": "1539612572033"
+				}
+			}
+		},
+		"authcognito615ee465": {
+			"Type": "AWS::CloudFormation::Stack",
+			"Properties": {
+				"TemplateURL": "https://s3.amazonaws.com/amplifysample-20181009090322-deployment/amplify-cfn-templates/auth/cognito615ee465-cloudformation-template.yml",
+				"Parameters": {
+					"identityPoolName": "cognito615ee465_identitypool_615ee465",
+					"allowUnauthenticatedIdentities": false,
+					"thirdPartyAuth": false,
+					"lambdaLogPolicy": "cognito615ee465_lambda_log_policy",
+					"openIdLambdaRoleName": "cognito615ee465_openid_lambda_role",
+					"openIdRolePolicy": "cognito615ee465_openid_pass_role_policy",
+					"openIdLambdaIAMPolicy": "cognito615ee465_openid_lambda_iam_policy",
+					"openIdLogPolicy": "cognito615ee465_openid_lambda_log_policy",
+					"userPoolName": "cognito615ee465_userpool_615ee465",
+					"autoVerifiedAttributes": "email",
+					"mfaConfiguration": "OFF",
+					"mfaTypes": "SMS Text Message",
+					"roleName": "cognito615ee465_sns-role",
+					"roleExternalId": "cognito615ee465_role_external_id",
+					"policyName": "cognito615ee465-sns-policy",
+					"smsAuthenticationMessage": "Your authentication code is {####}",
+					"smsVerificationMessage": "Your verification code is {####}",
+					"emailVerificationSubject": "Your verification code",
+					"emailVerificationMessage": "Your verification code is {####}",
+					"defaultPasswordPolicy": false,
+					"passwordPolicyMinLength": 8,
+					"passwordPolicyCharacters": "Requires Lowercase,Requires Uppercase,Requires Numbers,Requires Symbols",
+					"requiredAttributes": "email",
+					"userpoolClientName": "cognito615ee465_app_client",
+					"userpoolClientGenerateSecret": true,
+					"userpoolClientRefreshTokenValidity": 30,
+					"userpoolClientReadAttributes": "email",
+					"mfaLambdaRole": "cognito615ee465_totp_lambda_role",
+					"mfaLambdaLogPolicy": "cognito615ee465_totp_lambda_log_policy",
+					"mfaPassRolePolicy": "cognito615ee465_totp_pass_role_policy",
+					"mfaLambdaIAMPolicy": "cognito615ee465_totp_lambda_iam_policy",
+					"userpoolClientLambdaRole": "cognito615ee465_userpoolclient_lambda_role",
+					"userpoolClientLogPolicy": "cognito615ee465_userpoolclient_lambda_log_policy",
+					"userpoolClientLambdaPolicy": "cognito615ee465_userpoolclient_lambda_iam_policy",
+					"userpoolClientSetAttributes": false,
+					"useDefault": "default",
+					"unAuthRoleName": "amplifysample-20181009090322-unauthRole",
+					"authRoleName": "amplifysample-20181009090322-authRole",
+					"unAuthRoleArn": "arn:aws:iam::348873090553:role/amplifysample-20181009090322-unauthRole",
+					"authRoleArn": "arn:aws:iam::348873090553:role/amplifysample-20181009090322-authRole",
+					"resourceName": "cognito615ee465",
+					"authSelections": "identityPoolAndUserPool"
 				}
 			}
 		}
