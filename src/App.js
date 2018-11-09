@@ -79,6 +79,7 @@ class App extends Component {
     return (
       <div className="App">
         <div>
+          A/Bテスト ブランチ名： develop
           <input value={this.state.name} name="name" onChange={this.onChange} />
           <input value={this.state.description} name="description" onChange={this.onChange} />
           <button onClick={this.createCity}>Create City</button>
